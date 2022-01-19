@@ -10,7 +10,7 @@ import SwiftUI
 struct CombinedSchedules: View {
     @ObservedObject var mainDetailViewModel: MainDetailViewModel
     @State var selectedSchedule: String = "Today"
-    @State var constrained = false
+    @State var constrained = true
     
     var handleInfoChange: (() -> Void)?
     var body: some View {
@@ -29,7 +29,7 @@ struct CombinedSchedules: View {
                             } else {
 //                                if let student = mainDetailViewModel.student {
 //                                    mainDetailViewModel.extractSchedule(studentID: student.studentID)
-//                                    
+//
 //                                }
                                 selectedSchedule = "Full"
                             }
@@ -50,20 +50,23 @@ struct CombinedSchedules: View {
                         TodaySchedule(mainDetailViewModel: mainDetailViewModel)
                     }
                     
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            constrained = !constrained
-                        }) {
-                            TextView(text: constrained ? "Maximize" : "Minimize", fontWeight: .medium, color: .blue)
-                        }
-                     
-                        Spacer()
-                    }
+                    
                     
                     SpacingView(height: 30)
                 }
                 .frame(maxHeight: constrained ? 400 : .infinity)
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        constrained = !constrained
+                    }) {
+                        TextView(text: constrained ? "Maximize" : "Minimize", fontWeight: .medium, color: .blue)
+                    }
+                 
+                    Spacer()
+                }
+                .padding(.bottom, 10)
             }
             .padding(5)
         

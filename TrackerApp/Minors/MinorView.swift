@@ -17,17 +17,16 @@ struct MinorView: View {
         HStack {
             
             VStack(alignment: .leading) {
-                TextView(text: minor.title, fontWeight: .bold)
-                TextView(text: minor.description)
-                TextView(text: minor.time)
+                TextView(text: minor.title, size: 20, fontWeight: .bold)
+                TextView(text: minor.description, size: 16, fontWeight: .medium)
+                TextView(text: minor.time, size: 16, fontWeight: .medium)
                 
             }
             .padding(15)
             Spacer()
             
         }
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(color: black.opacity(0.1), radius: 20, x: 0, y: 10)
+        .background(midGray)
+        .cornerRadius(5)
     }
 }

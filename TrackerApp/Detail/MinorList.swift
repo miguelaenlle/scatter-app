@@ -9,27 +9,34 @@ import SwiftUI
 
 struct MinorList: View {
     @ObservedObject var mainDetailViewModel: MainDetailViewModel
+    @State var constrained: Bool = true
     var body: some View {
         
         VStack {
             SpacingView(height: 30)
             HStack {
                 Spacer()
-                TextView(text: "Minors", fontWeight: .bold)
+                TextView(text: "Minors", size: 20, fontWeight: .bold)
                 Spacer()
             }
             
             SpacingView(height: 30)
+            
             if mainDetailViewModel.minors.count > 0 {
-
-                LazyVStack {
-                    ForEach(mainDetailViewModel.minors, id: \.self) { minor in
-                        MinorView(minor: minor)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 5)
-                    }
+                ScrollView(showsIndicators: false) {
                     
+                    LazyVStack {
+                        ForEach(mainDetailViewModel.minors.sorted { $0.time.localizedStandardCompare($1.time) == .orderedDescending }, id: \.self) { minor in
+                            MinorView(minor: minor)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 5)
+                        }
+                        
+                        
+                    }
                 }
+                
+                .frame(maxHeight: constrained ? 500 : .infinity)
             } else {
                 HStack {
                     Spacer()
@@ -39,6 +46,17 @@ struct MinorList: View {
                 
             }
             SpacingView(height: 30)
+            HStack {
+                Spacer()
+                Button(action: {
+                    constrained = !constrained
+                }) {
+                    TextView(text: constrained ? "Maximize" : "Minimize", fontWeight: .medium, color: .blue)
+                }
+             
+                Spacer()
+            }
+            SpacingView(height: 10)
         }
         .background(Color.white)
         .cornerRadius(15)
