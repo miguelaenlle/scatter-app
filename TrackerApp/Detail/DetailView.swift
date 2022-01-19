@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailView: View {
     @ObservedObject var mainDetailViewModel: MainDetailViewModel
     @State var giveMinorOn: Bool = false
-    
+    @State var viewFullSchedule: Bool = false
     
     var body: some View {
         if let studentData = mainDetailViewModel.student {
@@ -47,20 +47,104 @@ struct DetailView: View {
                             VStack {
                                 SpacingView(height: 30)
                                 TextView(text: "Schedule", fontWeight: .bold)
-                                if (mainDetailViewModel.schedule.count > 0) {
+                                HStack {
+                                    Spacer()
+                                    Button(action: {
+                                        if let studentID = mainDetailViewModel.student?.studentID {
+                                            if !viewFullSchedule {
+                                                mainDetailViewModel.orangeDaySchedule = []
+                                                mainDetailViewModel.brownDaySchedule = []
+                                                mainDetailViewModel.extractFullSchedule(studentID: studentID)
+                                            }
+                                        } else {
+                                            self.mainDetailViewModel.addError("An error occured, please try again.")
+                                        }
+                                        if viewFullSchedule {
+                                            mainDetailViewModel.orangeDaySchedule = []
+                                            mainDetailViewModel.brownDaySchedule = []
+                                        }
+                                        
+                                        viewFullSchedule = !viewFullSchedule
+                                    }) {
+                                        TextView(text: viewFullSchedule ? "Close full schedule" : "View full schedule", color: .blue)
+                                    }
+                                    Spacer()
+                                    
+                                }
+                                if (viewFullSchedule) {
+                                    SpacingView(height: 20)
+                                    
+                                    if let dayType = mainDetailViewModel.dayType,
+                                       let periodNumber = mainDetailViewModel.periodNumber {
+                                        TextView(text: "Currently \(dayType) day, period \(periodNumber)", fontWeight: .bold, color: .black)
+                                    } else {
+                                        TextView(text: "No school today.")
+                                    }
+                                    SpacingView(height: 20)
+                                    
+                                    
+                                    TextView(text: "Orange Day Schedule", fontWeight: .bold, color: .orange)
                                     
                                 
-                                    ForEach(mainDetailViewModel.schedule.sorted(by: { $0.period < $1.period }), id: \.self) { schedule in
-                                        ScheduleView(scheduleData: schedule)
-                                            .padding(.horizontal, 20)
-                                            .padding(.vertical, 5)
+                                    if (mainDetailViewModel.orangeDaySchedule.count > 0) {
+                                        
+                                    
+                                        ForEach(mainDetailViewModel.orangeDaySchedule.sorted(by: { $0.period < $1.period }), id: \.self) { schedule in
+                                            ScheduleView(scheduleData: schedule)
+                                                .padding(.horizontal, 20)
+                                                .padding(.vertical, 5)
+                                        }
+                                        
+                                    } else {
+                                        HStack {
+                                            Spacer()
+                                            TextView(text: "Student has no classes on brown days.")
+                                            Spacer()
+                                            
+                                        }
                                     }
                                     
+                                    TextView(text: "Brown Day Schedule", fontWeight: .bold, color: .brown)
+                                    
+                                    if (mainDetailViewModel.brownDaySchedule.count > 0) {
+                                        
+                                    
+                                        ForEach(mainDetailViewModel.brownDaySchedule.sorted(by: { $0.period < $1.period }), id: \.self) { schedule in
+                                            ScheduleView(scheduleData: schedule)
+                                                .padding(.horizontal, 20)
+                                                .padding(.vertical, 5)
+                                        }
+                                        
+                                    } else {
+                                        HStack {
+                                            Spacer()
+                                            TextView(text: "Student has no classes on brown days.")
+                                            Spacer()
+                                            
+                                        }
+                                    }
+                                         
                                 } else {
-                                    HStack {
-                                        TextView(text: "Student has no classes today.")
+                                    if (mainDetailViewModel.schedule.count > 0) {
+                                        
+                                    
+                                        ForEach(mainDetailViewModel.schedule.sorted(by: { $0.period < $1.period }), id: \.self) { schedule in
+                                            ScheduleView(scheduleData: schedule)
+                                                .padding(.horizontal, 20)
+                                                .padding(.vertical, 5)
+                                        }
+                                        
+                                    } else {
+                                        HStack {
+                                            Spacer()
+                                            TextView(text: "Student has no classes today.")
+                                            Spacer()
+                                            
+                                        }
                                     }
                                 }
+                            
+                                
                                 SpacingView(height: 30)
                             }
                             .background(Color.white)

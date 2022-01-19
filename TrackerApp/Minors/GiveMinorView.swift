@@ -13,9 +13,14 @@ struct GiveMinorView: View {
     @State var currentTask = "Other"
     @State var description = ""
     let minorTypes = [
-        "Profanity",
-        "Shouting",
-        "Rude Behavior",
+        "Irresponsible Language",
+        "Incorrect Mask Use",
+        "Red Zone Noise",
+        "Loitering",
+        "Leaving Trash",
+        "Dress Decorum",
+        "Horseplay",
+        "Playing Loud Music",
         "Other"
     ]
     var userID: String?

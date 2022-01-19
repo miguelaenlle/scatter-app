@@ -34,6 +34,7 @@ struct UserView: View {
                     LogoutButton()
                         .environmentObject(userSession)
                 }
+                .transition(.move(edge: displayLogout ? .leading : .trailing))
             }
         }
     }

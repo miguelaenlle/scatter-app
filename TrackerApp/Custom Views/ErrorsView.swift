@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ErrorsView: View {
     @Binding var errors: [String]
+    let alertColor = Color(#colorLiteral(red: 0.9764705882, green: 0.0862745098, blue: 0.003921568627, alpha: 1))
     var body: some View {
         if errors.count > 0 {
             ForEach(errors, id: \.self) { error in
                 TextView(text: error,
-                         fontWeight: .regular,
-                         color: .red)
+                         fontWeight: .bold,
+                         color: alertColor)
+                    .frame(alignment: .leading)
             }
             SpacingView(height: 30)
         } else {

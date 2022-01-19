@@ -15,9 +15,10 @@ struct TextView: View {
     var color: Color = .black
     var body: some View {
         Text(text)
-            .font(Font.custom(customFont, size: size))
+            .font(.system(size: size))
             .fontWeight(fontWeight)
             .foregroundColor(color)
+            .multilineTextAlignment(.leading)
     }
 }
 

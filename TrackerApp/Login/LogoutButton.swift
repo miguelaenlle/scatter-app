@@ -13,7 +13,9 @@ struct LogoutButton: View {
     var body: some View {
         Button {
             signOut {
-                userSession.isSignedIn = false
+                withAnimation {
+                    userSession.isSignedIn = false
+                }
             }
         } label: {
             TextView(text: "Sign out", size: 15, fontWeight: .bold, color: .white)

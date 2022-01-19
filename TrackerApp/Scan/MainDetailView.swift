@@ -15,6 +15,8 @@ struct MainDetailView: View {
     @State var value: String = ""
     @State var presentingScannerSheet = true
     @State var presentDetailView: Bool = false
+    @State var isPresenting: Bool = false
+    
     func didDismiss() {
         // Handle the dismissing action.
         presentingScannerSheet = true
@@ -22,37 +24,45 @@ struct MainDetailView: View {
         mainDetailViewModel.loading = false
         mainDetailViewModel.schedule = []
         mainDetailViewModel.minors = []
+        mainDetailViewModel.currentClass = nil
+        mainDetailViewModel.student = nil
+        mainDetailViewModel.error = nil
     }
     var body: some View {
         ZStack {
-            if (presentingScannerSheet) {
-                CBScanner(
-                    supportBarcode: .constant([.code39, .code93, .code128]), //Set type of barcode you want to scan
-                    scanInterval: .constant(5.0) //Event will trigger every 5 seconds
-                ){
-                    //When the scanner found a barcode
-                    
-                    print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
-                    presentingScannerSheet = false
-                    value = $0.value
-                    mainDetailViewModel.processScan(scannedData: value) { completed in
-                        presentingScannerSheet = true
-                        if (completed) {
-                        
-                            presentDetailView = true
-                            // open the detail sheet
-                            
-                        }
-                            
-                    }
-                }
-                .ignoresSafeArea()
+            CBScanner(
+                supportBarcode: .constant([.code39, .code93, .code128]), //Set type of barcode you want to scan
+                scanInterval: .constant(5.0) //Event will trigger every 5 seconds
+            ){
+                //When the scanner found a barcode
                 
-                GeometryReader { reader in
-                    VStack {
+                print("BarCodeType =",$0.type.rawValue, "Value =",$0.value)
+                presentingScannerSheet = false
+                value = $0.value
+                mainDetailViewModel.processScan(scannedData: value) { completed in
+                    presentingScannerSheet = true
+                    if (completed) {
+                    
+                        presentDetailView = true
+                        // open the detail sheet
+                        
+                    }
+                        
+                }
+            }
+            .ignoresSafeArea()
+            .onTapGesture {
+                withAnimation {
+                    isPresenting = false
+                }
+            }
+            
+            GeometryReader { reader in
+                VStack {
+                    Spacer()
+                    HStack {
                         Spacer()
-                        HStack {
-                            Spacer()
+                        if (isPresenting == false) {
                             Image(systemName: "viewfinder")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -61,33 +71,48 @@ struct MainDetailView: View {
                                 .frame(width: (reader.size.width/2)-30, height: (reader.size.width/2)-30)
                             Spacer()
                         }
-                        Spacer()
                     }
-                }
-                VStack {
-                    HStack {
-                        UserView()
-                            .environmentObject(userSession)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                    
                     Spacer()
-                    ErrorsView(errors: $mainDetailViewModel.errors)
-                    InstructionView()
                 }
             }
+            VStack {
+                HStack {
+                    UserView()
+                        .environmentObject(userSession)
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+                
+                Spacer()
+                
+                ManualStudentID(mainDetailViewModel: mainDetailViewModel,
+                                presentingScannerSheet: $presentingScannerSheet,
+                                isPresenting: $isPresenting,
+                                presentDetailView: $presentDetailView)
+                    .padding(.bottom, 30)
+                    .environmentObject(userSession)
+                
+            }
+            
             if (mainDetailViewModel.loading) {
                 Color.black.opacity(0.5).ignoresSafeArea()
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
             }
+        
             
         }
         
         .sheet(isPresented: $presentDetailView,
                onDismiss: didDismiss) {
             DetailView(mainDetailViewModel: mainDetailViewModel)
+        }.alert(item: $mainDetailViewModel.error) { errorName in
+            Alert(
+                title: Text("Student doesn't exist"),
+                message: Text("Would you like to directly add a minor for this student instead?"),
+                primaryButton: .default(Text("Yes")),
+                secondaryButton: .cancel()
+            )
         }
         
 

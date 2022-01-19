@@ -6,7 +6,6 @@ target 'TrackerApp' do
   use_frameworks!
 
   # Pods for TrackerApp
-  pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'    
 

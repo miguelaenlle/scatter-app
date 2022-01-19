@@ -14,10 +14,12 @@ struct ContentView: View {
             MainDetailView()
                 .environmentObject(userSession)
                 .preferredColorScheme(.light)
+                .transition(.slide)
         } else {
             LoginView()
                 .environmentObject(userSession)
                 .preferredColorScheme(.light)
+                .transition(.slide)
         }
     }
 }

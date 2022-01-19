@@ -9,17 +9,23 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
+struct Message: Identifiable {
+    let id = UUID()
+    let text: String
+}
+
 class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var loading: Bool = false
+    @Published var displayErrorSheet: Bool = false
     
-    @Published var errors: [String] = []
+    @Published var error: Message? = nil
     
     func addError(_ error: String) {
         DispatchQueue.main.async {
             withAnimation {
-                self.errors.append(error)
+                self.error = Message(text: error)
                 
             }
         }
@@ -27,7 +33,7 @@ class LoginViewModel: ObservableObject {
     func resetErrors() {
         DispatchQueue.main.async {
             withAnimation {
-                self.errors = []
+                self.error = nil
                 
             }
         }
@@ -39,6 +45,7 @@ class LoginViewModel: ObservableObject {
         logUserIntoFirebase(email: email,
                             password: password) { error in
             if let error = error {
+                
                 self.addError(error)
                 completion(false)
             } else {

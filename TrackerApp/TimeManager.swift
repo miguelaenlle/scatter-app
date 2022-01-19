@@ -24,6 +24,7 @@ func fetchDayRTDBFormatForDate(date: Date) -> String {
 }
 
 func getDayType(completion: @escaping(String) -> Void) {
+//    completion("Brown") // omit this test
     // get the date
     let date = Date()
     let dateReference = db.collection("ob_days").document(fetchDayRTDBFormatForDate(date: date))
@@ -33,7 +34,7 @@ func getDayType(completion: @escaping(String) -> Void) {
              if let documentsData = document.data() {
                  print(documentsData)
                  if let dayType = documentsData["dayType"] as? String {
-                     completion(dayType.capitalized())
+                     completion(dayType.capitalized)
                  } else {
                      completion("")
                  }

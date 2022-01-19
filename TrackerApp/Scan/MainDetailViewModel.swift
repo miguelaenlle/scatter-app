@@ -10,21 +10,24 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class MainDetailViewModel: ObservableObject {
-    @Published var errors: [String] = []
+    @Published var error: Message? = nil
     @Published var loading = false
     @Published var documentData: [String: Any] = [:]
     @Published var student: Student?
     @Published var schedule: [Schedule] = []
+    @Published var brownDaySchedule: [Schedule] = []
+    @Published var orangeDaySchedule: [Schedule] = []
     @Published var minors: [Minor] = []
     
     @Published var currentClass: Schedule?
-    
+    @Published var periodNumber: Int?
+    @Published var dayType: String?
     
     let db = Firestore.firestore()
     func addError(_ error: String) {
         DispatchQueue.main.async {
             withAnimation {
-                self.errors.append(error)
+                self.error = Message(text: error)
                 
             }
         }
@@ -32,8 +35,7 @@ class MainDetailViewModel: ObservableObject {
     func resetErrors() {
         DispatchQueue.main.async {
             withAnimation {
-                self.errors = []
-                
+                self.error = nil
             }
         }
         
@@ -43,18 +45,35 @@ class MainDetailViewModel: ObservableObject {
         let currentDate = Date()
         let hour = Calendar.current.component(.hour, from: Date())
         let minute = Calendar.current.component(.minute, from: Date())
-//        
-//        let hour = 13
-//        let minute = 41
-        
-        let hrFilter = startEndTimes.filter {($0.start.hour <= hour) && ($0.end.hour >=  hour)}
+        // filter down the hour to get the period number [locally stored]
+        let hrFilter = startEndTimes.filter {($0.start.hour <= hour) && ($0.end.hour >=  hour)} // get
         print(hrFilter)
-        let dataFilter = hrFilter.filter {(($0.start.hour == hour) && ($0.start.minute <= minute) ) || (($0.end.hour == hour) && ($0.end.minute >= minute)) || (($0.end.hour > hour) && ($0.start.hour < hour))}
+        let dataFilter = hrFilter.filter {(($0.start.hour == hour) && ($0.start.minute <= minute) ) || (($0.end.hour == hour) && ($0.end.minute >= minute)) || (($0.end.hour > hour) && ($0.start.hour < hour))} // this might return 2??
         print(dataFilter)
         if dataFilter.count > 0 {
-            let periodNumber = dataFilter[0].period
-            // get the nth period for the student
-            self.currentClass = schedule.filter {$0.period == periodNumber}[0]
+            var periodNumber = dataFilter[0].period // pull the period
+            // does this only pull for the brown day??
+            
+            getDayType { dayType in
+                print(dayType)
+                self.periodNumber = periodNumber
+                self.dayType = dayType
+                if dayType == "Orange" {
+                    if dataFilter.count > 0 {
+                        periodNumber = dataFilter[0].period
+                    }
+                } else if dayType == "Brown" {
+                    if dataFilter.count > 1 {
+                        periodNumber = dataFilter[1].period
+                    }
+                }
+            }
+            print("Current period:", periodNumber)
+            let currentClasses = schedule.filter {$0.period == periodNumber}
+            if currentClasses.count > 0 {
+                self.currentClass = currentClasses[0]
+            }
+            
             
             
             print(periodNumber)
@@ -89,29 +108,64 @@ class MainDetailViewModel: ObservableObject {
         }
     }
     
-    
-    
-    func extractSchedule(studentID: String) {
-        getDayType { dayType in
-            print(dayType)
+    func extractFullSchedule(studentID: String) {
+        for dayType in ["Orange", "Brown"] {
             
             let scheduleReference = self.db.collection("students").document(studentID).collection(dayType)
+            
             scheduleReference.getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     self.addError(err.localizedDescription)
                 } else {
-                    for document in querySnapshot!.documents {
+                    
+                    guard let documents = querySnapshot?.documents else {return}
+                    for document in documents {
                         let className = document.documentID
                         if let period = document["periodNumber"] as? NSNumber,
                            let teacherEmail = document["teacherEmail"] as? String {
-                            let scheduleData = Schedule(className: className, period: Int(period), teacherEmail: teacherEmail)
-                            self.schedule.append(scheduleData)
-                            print(scheduleData)
+                            let scheduleData = Schedule(className: className, period: Int(period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
+                            if (dayType == "Orange") {
+                                self.orangeDaySchedule.append(scheduleData)
+                            } else if (dayType == "Brown") {
+                                self.brownDaySchedule.append(scheduleData)
+                                
+                            }
                         }
 
                     }
                     
+                    
                     self.getInformationForStudent()
+                }
+            }
+            
+        }
+    }
+    
+    func extractSchedule(studentID: String) {
+        
+        getDayType { dayType in
+            print(dayType)
+            if dayType != "" {
+                let scheduleReference = self.db.collection("students").document(studentID).collection(dayType)
+                scheduleReference.getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        self.addError(err.localizedDescription)
+                    } else {
+                        guard let documents = querySnapshot?.documents else {return}
+                        for document in documents {
+                            let className = document.documentID
+                            if let period = document["periodNumber"] as? NSNumber,
+                               let teacherEmail = document["teacherEmail"] as? String {
+                                let scheduleData = Schedule(className: className, period: Int(period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
+                                self.schedule.append(scheduleData)
+                                print(scheduleData)
+                            }
+
+                        }
+                        
+                        self.getInformationForStudent()
+                    }
                 }
             }
         }

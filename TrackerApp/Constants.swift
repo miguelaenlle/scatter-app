@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-let lightOrange = Color(#colorLiteral(red: 0.937254902, green: 0.6941176471, blue: 0.3098039216, alpha: 1))
-let darkOrange = Color(#colorLiteral(red: 0.9254901961, green: 0.4117647059, blue: 0.1764705882, alpha: 1))
-let lightBrown = Color(#colorLiteral(red: 0.7223111987, green: 0.3968755603, blue: 0.2101789117, alpha: 1))
+let lightOrange = Color(#colorLiteral(red: 0.8980392157, green: 0.5843137255, blue: 0.1333333333, alpha: 1))
+let darkOrange = Color(#colorLiteral(red: 1, green: 0.4901960784, blue: 0.1294117647, alpha: 1))
+let lightBrown = Color(#colorLiteral(red: 0.7058823529, green: 0.5254901961, blue: 0.1882352941, alpha: 1))
 
 
 
@@ -42,7 +42,7 @@ let blackShadow = black.opacity(0.3)
 let gray: Color = Color(#colorLiteral(red: 0.8822566867, green: 0.8824083805, blue: 0.8822471499, alpha: 1))
 let darkGray: Color = Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))
 
-let backgroundGray: Color = Color(#colorLiteral(red: 0.8705882353, green: 0.8705882353, blue: 0.8705882353, alpha: 1))
+let backgroundGray: Color = Color(#colorLiteral(red: 0.9843137255, green: 0.968627451, blue: 0.9568627451, alpha: 1))
 let midGray: Color = Color(#colorLiteral(red: 0.6770948457, green: 0.6770948457, blue: 0.6770948457, alpha: 1))
 
 
@@ -54,7 +54,7 @@ struct FontSizes {
 }
 
 
-let customFont = "Avenir"
+let customFont = "SF Pro Display"
 let brandName = "TidyNote for D214"
 
 let tasksString = "🎯  Tasks"
