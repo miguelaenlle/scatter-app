@@ -103,15 +103,17 @@ struct MainDetailView: View {
             
         }
         
-        .sheet(isPresented: $presentDetailView,
+        .fullScreenCover(isPresented: $presentDetailView,
                onDismiss: didDismiss) {
-            DetailView(mainDetailViewModel: mainDetailViewModel)
+            DetailView(mainDetailViewModel: mainDetailViewModel, presentDetailView: $presentDetailView)
         }.alert(item: $mainDetailViewModel.error) { errorName in
             Alert(
                 title: Text("Student doesn't exist"),
                 message: Text("Would you like to directly add a minor for this student instead?"),
                 primaryButton: .default(Text("Yes")),
-                secondaryButton: .cancel()
+                secondaryButton: .cancel() {
+                    didDismiss()
+                }
             )
         }
         

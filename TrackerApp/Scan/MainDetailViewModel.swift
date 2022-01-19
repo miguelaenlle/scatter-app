@@ -22,7 +22,6 @@ class MainDetailViewModel: ObservableObject {
     @Published var currentClass: Schedule?
     @Published var periodNumber: Int?
     @Published var dayType: String?
-    
     let db = Firestore.firestore()
     func addError(_ error: String) {
         DispatchQueue.main.async {
@@ -42,7 +41,6 @@ class MainDetailViewModel: ObservableObject {
     }
     
     func getInformationForStudent() {
-        let currentDate = Date()
         let hour = Calendar.current.component(.hour, from: Date())
         let minute = Calendar.current.component(.minute, from: Date())
         // filter down the hour to get the period number [locally stored]
@@ -50,6 +48,9 @@ class MainDetailViewModel: ObservableObject {
         print(hrFilter)
         let dataFilter = hrFilter.filter {(($0.start.hour == hour) && ($0.start.minute <= minute) ) || (($0.end.hour == hour) && ($0.end.minute >= minute)) || (($0.end.hour > hour) && ($0.start.hour < hour))} // this might return 2??
         print(dataFilter)
+        getDayType { dayType in
+            self.dayType = dayType
+        }
         if dataFilter.count > 0 {
             var periodNumber = dataFilter[0].period // pull the period
             // does this only pull for the brown day??
@@ -58,6 +59,7 @@ class MainDetailViewModel: ObservableObject {
                 print(dayType)
                 self.periodNumber = periodNumber
                 self.dayType = dayType
+                
                 if dayType == "Orange" {
                     if dataFilter.count > 0 {
                         periodNumber = dataFilter[0].period
@@ -123,7 +125,7 @@ class MainDetailViewModel: ObservableObject {
                         let className = document.documentID
                         if let period = document["periodNumber"] as? NSNumber,
                            let teacherEmail = document["teacherEmail"] as? String {
-                            let scheduleData = Schedule(className: className, period: Int(period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
+                            let scheduleData = Schedule(className: className, period: Int(truncating: period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
                             if (dayType == "Orange") {
                                 self.orangeDaySchedule.append(scheduleData)
                             } else if (dayType == "Brown") {
@@ -132,7 +134,9 @@ class MainDetailViewModel: ObservableObject {
                             }
                         }
 
+                        
                     }
+                    print(self.orangeDaySchedule)
                     
                     
                     self.getInformationForStudent()
@@ -142,22 +146,26 @@ class MainDetailViewModel: ObservableObject {
         }
     }
     
+    @Published var isLoading: Bool = false
+    
     func extractSchedule(studentID: String) {
-        
+        isLoading = true
         getDayType { dayType in
             print(dayType)
             if dayType != "" {
+                
                 let scheduleReference = self.db.collection("students").document(studentID).collection(dayType)
                 scheduleReference.getDocuments() { (querySnapshot, err) in
                     if let err = err {
                         self.addError(err.localizedDescription)
+                        self.isLoading = false
                     } else {
                         guard let documents = querySnapshot?.documents else {return}
                         for document in documents {
                             let className = document.documentID
                             if let period = document["periodNumber"] as? NSNumber,
                                let teacherEmail = document["teacherEmail"] as? String {
-                                let scheduleData = Schedule(className: className, period: Int(period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
+                                let scheduleData = Schedule(className: className, period: Int(truncating: period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
                                 self.schedule.append(scheduleData)
                                 print(scheduleData)
                             }
@@ -165,9 +173,24 @@ class MainDetailViewModel: ObservableObject {
                         }
                         
                         self.getInformationForStudent()
+                        self.isLoading = false
                     }
                 }
+            } else {
+                self.isLoading = false
             }
+        }
+    }
+    
+    func handleInfoChange() {
+        
+        if let studentID = self.student?.studentID {
+            self.orangeDaySchedule = []
+            self.brownDaySchedule = []
+            
+            self.extractFullSchedule(studentID: studentID)
+        } else {
+            self.addError("An error occured, please try again.")
         }
     }
     
@@ -193,6 +216,7 @@ class MainDetailViewModel: ObservableObject {
                        let studentEmail = documentsData["studentEmail"] as? String {
                         self.student = Student(studentID: studentID, studentName: studentName, studentEmail: studentEmail)
                     }
+                    self.handleInfoChange()
                     completion(true)
                     
                 } else {

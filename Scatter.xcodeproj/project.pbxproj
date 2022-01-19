@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		627A4303D0175A14B38C4245 /* Pods_TrackerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4469DCFE1C58444224FB62B /* Pods_TrackerApp.framework */; };
+		AF2AFA81279872FC00E2D19F /* StudentInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA80279872FC00E2D19F /* StudentInformationView.swift */; };
+		AF2AFA832798A53700E2D19F /* StudentDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA822798A53700E2D19F /* StudentDetailHeader.swift */; };
+		AF2AFA852798A54F00E2D19F /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA842798A54E00E2D19F /* BackButton.swift */; };
+		AF2AFA872798AAF600E2D19F /* FullScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA862798AAF600E2D19F /* FullScheduleView.swift */; };
+		AF2AFA8B2798AB6F00E2D19F /* TodaySchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA8A2798AB6F00E2D19F /* TodaySchedule.swift */; };
+		AF2AFA8D2798AC0D00E2D19F /* MinorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA8C2798AC0D00E2D19F /* MinorList.swift */; };
+		AF2AFA8F2798AC3500E2D19F /* CombinedSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA8E2798AC3500E2D19F /* CombinedSchedules.swift */; };
+		AF2AFA912798B2C800E2D19F /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA902798B2C800E2D19F /* Slider.swift */; };
+		AF2AFA932798B37600E2D19F /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2AFA922798B37600E2D19F /* SliderCell.swift */; };
 		AF49D86E2741678D006D4B51 /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF49D86D2741678D006D4B51 /* InstructionView.swift */; };
 		AF49D8702741687B006D4B51 /* LogoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF49D86F2741687B006D4B51 /* LogoutButton.swift */; };
 		AF49D87227416A5D006D4B51 /* PasswordChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF49D87127416A5D006D4B51 /* PasswordChange.swift */; };
@@ -54,6 +63,15 @@
 /* Begin PBXFileReference section */
 		1B42178AF574035DCD93DF96 /* Pods-TrackerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackerApp.release.xcconfig"; path = "Target Support Files/Pods-TrackerApp/Pods-TrackerApp.release.xcconfig"; sourceTree = "<group>"; };
 		9C085F53BBA9950FA37E7F30 /* Pods-TrackerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackerApp.debug.xcconfig"; path = "Target Support Files/Pods-TrackerApp/Pods-TrackerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		AF2AFA80279872FC00E2D19F /* StudentInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInformationView.swift; sourceTree = "<group>"; };
+		AF2AFA822798A53700E2D19F /* StudentDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDetailHeader.swift; sourceTree = "<group>"; };
+		AF2AFA842798A54E00E2D19F /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		AF2AFA862798AAF600E2D19F /* FullScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScheduleView.swift; sourceTree = "<group>"; };
+		AF2AFA8A2798AB6F00E2D19F /* TodaySchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySchedule.swift; sourceTree = "<group>"; };
+		AF2AFA8C2798AC0D00E2D19F /* MinorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinorList.swift; sourceTree = "<group>"; };
+		AF2AFA8E2798AC3500E2D19F /* CombinedSchedules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedSchedules.swift; sourceTree = "<group>"; };
+		AF2AFA902798B2C800E2D19F /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		AF2AFA922798B37600E2D19F /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		AF49D86D2741678D006D4B51 /* InstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionView.swift; sourceTree = "<group>"; };
 		AF49D86F2741687B006D4B51 /* LogoutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutButton.swift; sourceTree = "<group>"; };
 		AF49D87127416A5D006D4B51 /* PasswordChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChange.swift; sourceTree = "<group>"; };
@@ -135,6 +153,12 @@
 				AF49D8842741A46E006D4B51 /* ScheduleView.swift */,
 				AF49D8862741AF49006D4B51 /* EmailTeacher.swift */,
 				AF49D8882741B267006D4B51 /* SummaryView.swift */,
+				AF2AFA80279872FC00E2D19F /* StudentInformationView.swift */,
+				AF2AFA822798A53700E2D19F /* StudentDetailHeader.swift */,
+				AF2AFA862798AAF600E2D19F /* FullScheduleView.swift */,
+				AF2AFA8A2798AB6F00E2D19F /* TodaySchedule.swift */,
+				AF2AFA8C2798AC0D00E2D19F /* MinorList.swift */,
+				AF2AFA8E2798AC3500E2D19F /* CombinedSchedules.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -171,6 +195,9 @@
 				AF8341C7273D849D00BECAAA /* SpacingView.swift */,
 				AF8341CC273D863500BECAAA /* TextFieldWithTitleView.swift */,
 				AF8341CE27415E3D00BECAAA /* ErrorsView.swift */,
+				AF2AFA842798A54E00E2D19F /* BackButton.swift */,
+				AF2AFA902798B2C800E2D19F /* Slider.swift */,
+				AF2AFA922798B37600E2D19F /* SliderCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -391,14 +418,19 @@
 				AF49D87C27418BF4006D4B51 /* DetailView.swift in Sources */,
 				AF49D88127418E91006D4B51 /* Schedule.swift in Sources */,
 				AF8341C4273D830600BECAAA /* LoginViewModel.swift in Sources */,
+				AF2AFA8D2798AC0D00E2D19F /* MinorList.swift in Sources */,
+				AF2AFA852798A54F00E2D19F /* BackButton.swift in Sources */,
 				AFCDEDDF2741C7C000D7BC87 /* MinorView.swift in Sources */,
+				AF2AFA8F2798AC3500E2D19F /* CombinedSchedules.swift in Sources */,
 				AF8341B6273D7DE200BECAAA /* ButtonView.swift in Sources */,
 				AF49D8852741A46E006D4B51 /* ScheduleView.swift in Sources */,
 				AF49D87427416CA8006D4B51 /* UserView.swift in Sources */,
 				AF49D8702741687B006D4B51 /* LogoutButton.swift in Sources */,
 				AF49D87F27418E8A006D4B51 /* Student.swift in Sources */,
 				AFCDEDE12741C7D800D7BC87 /* Minor.swift in Sources */,
+				AF2AFA8B2798AB6F00E2D19F /* TodaySchedule.swift in Sources */,
 				AF8341BC273D7F1300BECAAA /* UserSession.swift in Sources */,
+				AF2AFA872798AAF600E2D19F /* FullScheduleView.swift in Sources */,
 				AF49D88327419501006D4B51 /* TimeManager.swift in Sources */,
 				AF8341B2273D7DAB00BECAAA /* TextfieldView.swift in Sources */,
 				AF8341BE273D7F4600BECAAA /* FireManager.swift in Sources */,
@@ -406,10 +438,14 @@
 				AF49D88C2741B8D7006D4B51 /* GiveMinorView.swift in Sources */,
 				AF8341C6273D846F00BECAAA /* HeaderView.swift in Sources */,
 				AF49D87627416FC4006D4B51 /* MainDetailViewModel.swift in Sources */,
+				AF2AFA932798B37600E2D19F /* SliderCell.swift in Sources */,
 				AF5DBA442757057A003256D6 /* ManualStudentID.swift in Sources */,
 				AF49D8872741AF49006D4B51 /* EmailTeacher.swift in Sources */,
+				AF2AFA81279872FC00E2D19F /* StudentInformationView.swift in Sources */,
+				AF2AFA912798B2C800E2D19F /* Slider.swift in Sources */,
 				AFC7F299273D770F00D5EC3B /* TrackerAppApp.swift in Sources */,
 				AF8341CB273D85C200BECAAA /* Ext+View.swift in Sources */,
+				AF2AFA832798A53700E2D19F /* StudentDetailHeader.swift in Sources */,
 				AF8341B8273D7E0500BECAAA /* Constants.swift in Sources */,
 				AFCDEDE32741CE2500D7BC87 /* TimeInstance.swift in Sources */,
 				AF49D87227416A5D006D4B51 /* PasswordChange.swift in Sources */,

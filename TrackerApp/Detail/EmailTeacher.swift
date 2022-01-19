@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EmailTeacher: View {
     var email: String
+    var emphasized: Bool = false
     var body: some View {
     
         Button {
@@ -18,12 +19,12 @@ struct EmailTeacher: View {
                 }
             }
         } label: {
-            Image(systemName: "envelope.circle")
+            Image(systemName: "envelope.fill")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(email != "" ? Color.black: Color.black.opacity(0.5))
+                .foregroundColor(emphasized ? .white : .gray)
                 .background(Color.clear)
-                .frame(width: 50, height: 50)
+                .frame(width: 30, height: 30)
             
         }
     }

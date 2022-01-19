@@ -9,28 +9,36 @@ import SwiftUI
 
 struct ScheduleView: View {
     var scheduleData: Schedule
+    var emphasized: Bool = false
     
     var body: some View {
         
         HStack {
             
             VStack(alignment: .leading) {
-                TextView(text: scheduleData.className, fontWeight: .bold)
-                TextView(text: "Period \(scheduleData.period)")
+                TextView(text: scheduleData.className, size: 20, fontWeight: .bold, color: emphasized ? .white: darkOrange)
+                
+                TextView(text: "Period \(scheduleData.period)", size: 16, fontWeight: .medium, color: emphasized ? .white: .gray)
+                SpacingView(height: 20)
                 
             }
-            .padding(15)
+            .padding(10)
             Spacer()
             VStack(alignment: .trailing) {
                 Spacer()
-                EmailTeacher(email: scheduleData.teacherEmail)
+                VStack {
+                    HStack {
+                        EmailTeacher(email: scheduleData.teacherEmail, emphasized: emphasized)
+                        Spacer().frame(width: 20)
+                    }
+                    SpacingView(height: 20)
+                }
                 Spacer()
             }
-            .padding(15)
             
         }
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(color: black.opacity(0.1), radius: 20, x: 0, y: 10)
+        .padding(.vertical, 10)
+        .background(emphasized ? darkOrange: backgroundGray)
+        .cornerRadius(5)
     }
 }

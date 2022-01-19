@@ -40,11 +40,10 @@ let orangeWhiteLinearGradient = LinearGradient(gradient: whiteToOrangeGradient,
 let black: Color = .black
 let blackShadow = black.opacity(0.3)
 let gray: Color = Color(#colorLiteral(red: 0.8822566867, green: 0.8824083805, blue: 0.8822471499, alpha: 1))
-let darkGray: Color = Color(#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))
+let darkGray: Color = Color(#colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1))
 
 let backgroundGray: Color = Color(#colorLiteral(red: 0.9843137255, green: 0.968627451, blue: 0.9568627451, alpha: 1))
-let midGray: Color = Color(#colorLiteral(red: 0.6770948457, green: 0.6770948457, blue: 0.6770948457, alpha: 1))
-
+let midGray: Color = Color(#colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1))
 
 struct FontSizes {
     let large: CGFloat = 24.0
