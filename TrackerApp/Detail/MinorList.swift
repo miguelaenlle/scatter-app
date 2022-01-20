@@ -23,7 +23,7 @@ struct MinorList: View {
             SpacingView(height: 30)
             
             if mainDetailViewModel.minors.count > 0 {
-                ScrollView(showsIndicators: false) {
+                ScrollView(showsIndicators: true) {
                     
                     LazyVStack {
                         ForEach(mainDetailViewModel.minors.sorted { $0.time.localizedStandardCompare($1.time) == .orderedDescending }, id: \.self) { minor in
@@ -34,7 +34,9 @@ struct MinorList: View {
                         
                         
                     }
+                    .padding(.vertical, 20)
                 }
+                .padding(.horizontal, 5)
                 
                 .frame(maxHeight: constrained ? 500 : .infinity)
             } else {
@@ -56,7 +58,7 @@ struct MinorList: View {
              
                 Spacer()
             }
-            SpacingView(height: 10)
+            SpacingView(height: 20)
         }
         .background(Color.white)
         .cornerRadius(15)

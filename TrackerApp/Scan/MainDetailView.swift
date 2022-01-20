@@ -109,9 +109,8 @@ struct MainDetailView: View {
         }.alert(item: $mainDetailViewModel.error) { errorName in
             Alert(
                 title: Text("Student doesn't exist"),
-                message: Text("Would you like to directly add a minor for this student instead?"),
-                primaryButton: .default(Text("Yes")),
-                secondaryButton: .cancel() {
+                message: Text("The student has not been added to the database yet."),
+                dismissButton: .cancel() {
                     didDismiss()
                 }
             )

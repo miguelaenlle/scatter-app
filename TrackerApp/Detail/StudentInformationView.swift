@@ -36,6 +36,7 @@ struct StudentInformationView: View {
             
             Spacer()
         }
+        .transition(.identity)
     }
 }
 

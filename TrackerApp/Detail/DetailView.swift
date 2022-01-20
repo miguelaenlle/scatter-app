@@ -24,6 +24,7 @@ struct DetailView: View {
             
         }
     }
+    @State var gaveMinor: Bool = false
     
     
     var body: some View {
@@ -31,21 +32,33 @@ struct DetailView: View {
             ZStack {
                 backgroundGray
                     .ignoresSafeArea()
-                VStack {
-                    ScrollView() {
+                if !giveMinorOn {
+                    ScrollView(showsIndicators: false) {
+                        
                         StudentDetailHeader(studentName: studentData.studentName, studentEmail: studentData.studentEmail, backClicked: handlePageChange)
-                        if !giveMinorOn {
-                            StudentInformationView(giveMinorOn: $giveMinorOn, mainDetailViewModel: mainDetailViewModel, studentData: studentData)
-                        } else {
-                            
-                            GiveMinorView(userID: studentData.studentID, giveMinor: {
-                                self.mainDetailViewModel.regenMinors()
-                                self.giveMinorOn = false
-                            })
-                        }
+                        StudentInformationView(giveMinorOn: $giveMinorOn, mainDetailViewModel: mainDetailViewModel, studentData: studentData)
                     }
+                    
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        StudentDetailHeader(studentName: studentData.studentName, studentEmail: studentData.studentEmail, backClicked: handlePageChange)
+                        GiveMinorView(userID: studentData.studentID, giveMinor: {
+                            self.mainDetailViewModel.regenMinors()
+                            self.giveMinorOn = false
+                            self.gaveMinor = true
+                        })
+                    }
+                    
                 }
+            }.alert(isPresented: $gaveMinor) {
+                Alert(
+                    title: Text("Minor successfully added."),
+                    message: Text("The minor has successfully been added to the database."),
+                    dismissButton: .default(Text("Okay")) {
+                        self.gaveMinor = false
+                    }
+                )
             }
-        }
+        } 
     }
 }

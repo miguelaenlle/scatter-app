@@ -20,7 +20,7 @@ struct CombinedSchedules: View {
                 SpacingView(height: 30)
                 TextView(text: "Schedule", size: 22, fontWeight: .bold, color: .black)
                     .padding(.horizontal, 10)
-                ScrollView(showsIndicators: false) {
+                ScrollView(showsIndicators: true) {
                     HStack {
                         Spacer()
                         Button(action: {
@@ -52,10 +52,10 @@ struct CombinedSchedules: View {
                     
                     
                     
-                    SpacingView(height: 30)
                 }
                 .frame(maxHeight: constrained ? 400 : .infinity)
                 
+                SpacingView(height: 30)
                 HStack {
                     Spacer()
                     Button(action: {
@@ -66,7 +66,7 @@ struct CombinedSchedules: View {
                  
                     Spacer()
                 }
-                .padding(.bottom, 10)
+                SpacingView(height: 20)
             }
             .padding(5)
         
