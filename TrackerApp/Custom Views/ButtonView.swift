@@ -17,12 +17,12 @@ struct ButtonView: View {
             ZStack {
                 HStack {
                     Spacer()
-                    TextView(text: text, size: FontSizes().medium, fontWeight: .bold, color: invertedColorscheme ? darkOrange: .white)
+                    TextView(text: text, size: 20, fontWeight: .bold, color: invertedColorscheme ? darkOrange: .white)
                     Spacer()
                 }
                 HStack {
                     Spacer()
-                    Image(systemName: "chevron.right").foregroundColor(invertedColorscheme ? darkOrange: .white).font(Font.system(size: 15, weight: .bold))
+                    Image(systemName: "chevron.right").foregroundColor(invertedColorscheme ? darkOrange: .white).font(Font.system(size: 20, weight: .bold))
                 }
                 .padding(.horizontal, 30)
             }

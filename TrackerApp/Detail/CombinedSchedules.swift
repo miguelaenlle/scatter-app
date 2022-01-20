@@ -20,28 +20,29 @@ struct CombinedSchedules: View {
                 SpacingView(height: 30)
                 TextView(text: "Schedule", size: 22, fontWeight: .bold, color: .black)
                     .padding(.horizontal, 10)
-                ScrollView(showsIndicators: true) {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            if (selectedSchedule == "Full") {
-                                selectedSchedule = "Today"
-                            } else {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        if (selectedSchedule == "Full") {
+                            selectedSchedule = "Today"
+                        } else {
 //                                if let student = mainDetailViewModel.student {
 //                                    mainDetailViewModel.extractSchedule(studentID: student.studentID)
 //
 //                                }
-                                selectedSchedule = "Full"
-                            }
-                        }) {
-                            
-                            Slider(selectedElement: $selectedSchedule, elements: ["Today", "Full"])
-                                .padding(.horizontal, 10)
-                            
+                            selectedSchedule = "Full"
                         }
-                        Spacer()
+                    }) {
+                        
+                        Slider(selectedElement: $selectedSchedule, elements: ["Today", "Full"])
+                            .padding(.horizontal, 10)
                         
                     }
+                    Spacer()
+                    
+                }
+                ScrollView(showsIndicators: false) {
+                    
                     SpacingView(height: 30)
                     if (selectedSchedule == "Full") {
                         FullScheduleView(mainDetailViewModel: mainDetailViewModel)
@@ -61,7 +62,7 @@ struct CombinedSchedules: View {
                     Button(action: {
                         constrained = !constrained
                     }) {
-                        TextView(text: constrained ? "Maximize" : "Minimize", fontWeight: .medium, color: .blue)
+                        TextView(text: constrained ? "Maximize" : "Minimize", size: 20, fontWeight: .medium, color: .blue)
                     }
                  
                     Spacer()

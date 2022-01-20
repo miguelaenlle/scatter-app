@@ -24,7 +24,7 @@ struct UserView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(Color.white.opacity(0.5))
                         .background(Color.clear)
-                        .frame(width: 50, height: 50)
+                        .frame(width: 60, height: 60)
                 }
             }
             if (displayLogout) {

@@ -63,25 +63,28 @@ struct ManualStudentID: View {
         VStack {
             if (isPresenting) {
                 HStack {
-                    TextFieldView(text: $value, placeholderText: "Enter ID here", keyboardType: .numpad)
-                        .background(Color.white)
-                        .cornerRadius(5)
-                        .shadow(color: black.opacity(0.1), radius: 20, x: 0, y: 10)
-                    Button {
-                        self.addInformation()
-                    } label: {
-                        Image(systemName: "chevron.right")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 20)
-                            .foregroundColor(.white)
+                    ZStack {
+                        TextFieldView(text: $value, placeholderText: "Enter ID here", keyboardType: .numpad)
+                            .background(Color.white)
+                            .cornerRadius(5)
                             .shadow(color: black.opacity(0.1), radius: 20, x: 0, y: 10)
-                            .padding(20)
-                            .background(Color.clear)
+                        HStack {
+                            Spacer()
+                        
+                            Button {
+                                self.addInformation()
+                            } label: {
+                                Image(systemName: "chevron.right")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 20)
+                                    .foregroundColor(.gray)
+                                    .shadow(color: black.opacity(0.1), radius: 20, x: 0, y: 10)
+                                    .padding(20)
+                                    .background(Color.clear)
+                            }
+                        }
                     }
-                
-                    
-
                 }
                 .padding(30)
             }
@@ -98,6 +101,6 @@ struct ManualStudentID: View {
                 }
             }
         }
-        .padding(.horizontal, 60)
+        .padding(.horizontal, 40)
     }
 }

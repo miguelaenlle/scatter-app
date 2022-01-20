@@ -17,7 +17,7 @@ struct TextFieldWithTitleView: View {
     var body: some View {
         VStack {
             HStack {
-                TextView(text: titleText, size: FontSizes().medium, fontWeight: .bold)
+                TextView(text: titleText, size: 20, fontWeight: .bold)
                 Spacer()
             }
             

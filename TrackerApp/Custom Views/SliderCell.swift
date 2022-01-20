@@ -18,7 +18,7 @@ struct SliderCell: View {
             } else {
                 Color.clear
             }
-            TextView(text: text, color: (selectedText == text) ? .white : .black)
+            TextView(text: text, size: 20, fontWeight: .medium, color: (selectedText == text) ? .white : .black)
                 .padding(10)
         }
     }

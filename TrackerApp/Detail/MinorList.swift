@@ -16,14 +16,14 @@ struct MinorList: View {
             SpacingView(height: 30)
             HStack {
                 Spacer()
-                TextView(text: "Minors", size: 20, fontWeight: .bold)
+                TextView(text: "Minors", size: 22, fontWeight: .bold)
                 Spacer()
             }
             
             SpacingView(height: 30)
             
             if mainDetailViewModel.minors.count > 0 {
-                ScrollView(showsIndicators: true) {
+                ScrollView(showsIndicators: false) {
                     
                     LazyVStack {
                         ForEach(mainDetailViewModel.minors.sorted { $0.time.localizedStandardCompare($1.time) == .orderedDescending }, id: \.self) { minor in
@@ -42,7 +42,7 @@ struct MinorList: View {
             } else {
                 HStack {
                     Spacer()
-                    TextView(text: "No minors 👍", fontWeight: .regular)
+                    TextView(text: "No minors 👍", size: 20, fontWeight: .medium)
                     Spacer()
                 }
                 
@@ -53,7 +53,7 @@ struct MinorList: View {
                 Button(action: {
                     constrained = !constrained
                 }) {
-                    TextView(text: constrained ? "Maximize" : "Minimize", fontWeight: .medium, color: .blue)
+                    TextView(text: constrained ? "Maximize" : "Minimize", size: 20, fontWeight: .medium, color: .blue)
                 }
              
                 Spacer()

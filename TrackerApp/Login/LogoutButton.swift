@@ -18,7 +18,7 @@ struct LogoutButton: View {
                 }
             }
         } label: {
-            TextView(text: "Sign out", size: 15, fontWeight: .bold, color: .white)
+            TextView(text: "Sign out", size: 20, fontWeight: .bold, color: .white)
                 .background(Color.clear)
         }
 

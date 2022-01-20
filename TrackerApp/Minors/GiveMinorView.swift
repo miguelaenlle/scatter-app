@@ -39,7 +39,7 @@ struct GiveMinorView: View {
     var body: some View {
         VStack {
             VStack {
-                ScrollView(showsIndicators: true) {
+                ScrollView(showsIndicators: false) {
                     VStack {
                         HStack {
                             TextView(text: "Minor Type", size: 22, fontWeight: .bold, color: .black)
@@ -49,7 +49,7 @@ struct GiveMinorView: View {
                                 Spacer()
                                 VStack {
                                     SpacingView(height: 20)
-                                    TextView(text: minorType, fontWeight: .medium, color: currentTask != minorType ? .black: .white)
+                                    TextView(text: minorType, size: 20, fontWeight: .medium, color: currentTask != minorType ? .black: .white)
                                     SpacingView(height: 20)
                                 }
                                 Spacer()
@@ -76,7 +76,7 @@ struct GiveMinorView: View {
                     Button(action: {
                         constrained = !constrained
                     }) {
-                        TextView(text: constrained ? "Maximize" : "Minimize", fontWeight: .medium, color: .blue)
+                        TextView(text: constrained ? "Maximize" : "Minimize", size: 20, fontWeight: .medium, color: .blue)
                     }
                  
                     Spacer()
@@ -90,18 +90,18 @@ struct GiveMinorView: View {
         
             VStack {
                 VStack {
-                    TextView(text: "Description", fontWeight: .bold)
+                    TextView(text: "Description", size: 24, fontWeight: .bold)
                     ZStack {
                         
                         TextEditor(text: $description)
-                            .font(.system(size: 16))
+                            .font(.system(size: 20))
                             .frame(height: 300)
                             .padding(5)
                             .foregroundColor(darkGray)
                         if (description.isEmpty) {
                             VStack {
                                 HStack {
-                                    TextView(text: "Describe the incident... (optional)", size: 16, color: midGray)
+                                    TextView(text: "Describe the incident... (optional)", size: 20, color: midGray)
                                     Spacer()
                                 }
                                 Spacer()

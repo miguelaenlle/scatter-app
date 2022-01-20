@@ -14,7 +14,7 @@ struct HeaderView: View {
         
         
         HStack {
-            TextView(text: text, size: FontSizes().large, fontWeight: .bold)
+            TextView(text: text, size: 26, fontWeight: .bold)
             
             Spacer()
         }

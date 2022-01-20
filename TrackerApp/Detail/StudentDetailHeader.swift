@@ -33,7 +33,7 @@ struct StudentDetailHeader: View {
                 
 
                 HStack {
-                    TextView(text: studentName, size: 24, fontWeight: .bold, color: .black)
+                    TextView(text: studentName, size: 32, fontWeight: .bold, color: .black)
                     Spacer()
                 }
                 HStack {
@@ -41,7 +41,7 @@ struct StudentDetailHeader: View {
                         sendEmail()
                     } label: {
                     
-                        TextView(text: studentEmail, size: 16, fontWeight: .medium, color: .blue)
+                        TextView(text: studentEmail, size: 24, fontWeight: .medium, color: .blue)
                     }
                     Spacer()
                 }

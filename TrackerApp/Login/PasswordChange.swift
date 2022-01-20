@@ -30,13 +30,13 @@ struct PasswordChange: View {
         Button {
             changePasswordFunc()
         } label: {
-            TextView(text: "Change password", size: 15, fontWeight: .bold, color: .white)
+            TextView(text: "Change password", size: 20, fontWeight: .bold, color: .white)
                 .background(Color.clear)
                 .disabled(loading)
         }
         if (emailSent) {
             
-            TextView(text: "A password change email was sent.", size: 15, fontWeight: .bold, color: .green)
+            TextView(text: "A password change email was sent.", size: 20, fontWeight: .bold, color: .green)
                 .background(Color.clear)
         }
 

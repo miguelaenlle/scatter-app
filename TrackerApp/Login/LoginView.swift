@@ -30,7 +30,7 @@ struct LoginView: View {
                     SpacingView(height: 20)
                     
                     HStack {
-                        TextView(text: "Scatter for JHHS", size: 30, fontWeight: .bold, color: .black)
+                        TextView(text: "Scatter for JHHS", size: 32, fontWeight: .bold, color: .black)
                         Spacer()
                     }
                     SpacingView(height: 30)

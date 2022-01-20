@@ -24,27 +24,27 @@ struct TextFieldView: View {
             switch keyboardType {
                 case .normal:
                     TextField(placeholderText, text: $text)
-                        .font(.system(size: FontSizes().medium))
+                        .font(.system(size: 20))
                 case .numpad:
                     TextField(placeholderText, text: $text)
                         .keyboardType(.numberPad)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
-                        .font(.system(size: FontSizes().medium))
+                        .font(.system(size: 20))
                         
                 case .email:
                     TextField(placeholderText, text: $text)
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
-                        .font(.system(size: FontSizes().medium))
+                        .font(.system(size: 20))
                 
                 case .password:
                     SecureField(placeholderText, text: $text)
                         .keyboardType(.asciiCapable)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
-                        .font(.system(size: FontSizes().medium))
+                        .font(.system(size: 20))
             }
             
             Spacer()

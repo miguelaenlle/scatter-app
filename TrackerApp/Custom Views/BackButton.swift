@@ -12,9 +12,9 @@ struct BackButton: View {
         HStack {
             Image(systemName: "chevron.left")
                 .foregroundColor(darkGray)
-                .font(Font.system(size: 16))
+                .font(Font.system(size: 20))
                 .padding(.trailing, 0)
-            TextView(text: "Back", size: 16, fontWeight: .medium, color: darkGray)
+            TextView(text: "Back", size: 20, fontWeight: .medium, color: darkGray)
 
         }
     }
