@@ -52,7 +52,7 @@ func signOut(completion: @escaping() -> Void) {
 
 func changePassword(email: String, completion: @escaping() -> Void) {
 
-    try Auth.auth().sendPasswordReset(withEmail: email) { error in
+    Auth.auth().sendPasswordReset(withEmail: email) { error in
         completion()
     }
 }

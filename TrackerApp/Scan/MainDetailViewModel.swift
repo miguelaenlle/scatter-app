@@ -123,13 +123,26 @@ class MainDetailViewModel: ObservableObject {
                     guard let documents = querySnapshot?.documents else {return}
                     for document in documents {
                         let className = document.documentID
+                        
+
                         if let period = document["periodNumber"] as? NSNumber,
                            let teacherEmail = document["teacherEmail"] as? String {
-                            let scheduleData = Schedule(className: className, period: Int(truncating: period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
+                            let periodNumber = Int(truncating: period)+1
+                            
+                            
+                            
+                            let scheduleData = Schedule(className: className, period: periodNumber, teacherEmail: teacherEmail) // fixed the start end time thing here
+                            
                             if (dayType == "Orange") {
-                                self.orangeDaySchedule.append(scheduleData)
+                                let orangePeriods = self.orangeDaySchedule.map {$0.period}
+                                if (!orangePeriods.contains(periodNumber)) {
+                                    self.orangeDaySchedule.append(scheduleData)
+                                }
                             } else if (dayType == "Brown") {
-                                self.brownDaySchedule.append(scheduleData)
+                                let brownPeriods = self.brownDaySchedule.map {$0.period}
+                                if (!brownPeriods.contains(periodNumber)) {
+                                    self.brownDaySchedule.append(scheduleData)
+                                }
                                 
                             }
                         }
@@ -165,9 +178,12 @@ class MainDetailViewModel: ObservableObject {
                             let className = document.documentID
                             if let period = document["periodNumber"] as? NSNumber,
                                let teacherEmail = document["teacherEmail"] as? String {
-                                let scheduleData = Schedule(className: className, period: Int(truncating: period)+1, teacherEmail: teacherEmail) // fixed the start end time thing here
-                                self.schedule.append(scheduleData)
-                                print(scheduleData)
+                                let intPeriod = Int(truncating: period) + 1
+                                let periods = self.schedule.map {$0.period}
+                                if (!periods.contains(intPeriod)) {
+                                    let scheduleData = Schedule(className: className, period: intPeriod, teacherEmail: teacherEmail) // fixed the start end time thing here
+                                    self.schedule.append(scheduleData)
+                                }
                             }
 
                         }
